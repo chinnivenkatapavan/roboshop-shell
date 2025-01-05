@@ -1,7 +1,10 @@
+cp catalogue.service /etc/systemd/system/catalogue.service
+cp mongo.repo /etc/yum.repos.d/mongo.repo
+
 dnf module disable nodejs -y
 dnf module enable nodejs:20 -y
 
-cp catalogue.service /etc/systemd/system/catalogue.service
+
 
 dnf install nodejs -y
 
@@ -22,7 +25,7 @@ systemctl daemon-reload
 systemctl enable catalogue
 systemctl start catalogue
 
-cp mongo.repo /etc/yum.repos.d/mongo.repo
+
 
 dnf install mongodb-mongosh -y
 
