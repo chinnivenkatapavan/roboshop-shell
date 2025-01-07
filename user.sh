@@ -3,7 +3,7 @@ app_name=user
 
 cp user.service /etc/systemd/system/user.service
 
-nodeJs
+NodeJs
 
 UserAdd
 
