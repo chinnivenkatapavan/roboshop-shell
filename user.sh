@@ -1,20 +1,11 @@
 source ./common.sh
+app_name=user
 
 cp user.service /etc/systemd/system/user.service
 
 nodeJs
 
-useradd roboshop
-
-rm -rf /app
-mkdir /app
-
-curl -L -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/user-v3.zip
-cd /app
-unzip /tmp/user.zip
-
-cd /app
-npm install
+UserAdd
 
 systemctl daemon-reload
 

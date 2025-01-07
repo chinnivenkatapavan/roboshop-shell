@@ -1,5 +1,4 @@
 source ./common.sh
-
 app_name=catalogue
 
 cp ${app_name}.service /etc/systemd/system/${app_name}.service
@@ -7,17 +6,7 @@ cp mongo.repo /etc/yum.repos.d/mongo.repo
 
 nodeJs
 
-useradd roboshop
-
-rm -rf /app
-mkdir /app
-
-curl -o /tmp/${app_name}.zip https://roboshop-artifacts.s3.amazonaws.com/${app_name}-v3.zip
-cd /app
-unzip /tmp/${app_name}.zip
-
-cd /app
-npm install
+UserAdd
 
 systemctl daemon-reload
 
