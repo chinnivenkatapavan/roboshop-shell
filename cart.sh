@@ -2,7 +2,7 @@ source ./common.sh
 app_name=cart
 
 
-cp cart.service /etc/systemd/system/cart.service
+cp ${app_name}.service /etc/systemd/system/${app_name}.service
 
 nodeJs
 
@@ -10,5 +10,5 @@ UserAdd
 
 systemctl daemon-reload
 
-systemctl enable cart
-systemctl start cart
+systemctl enable ${app_name}
+systemctl restart ${app_name}

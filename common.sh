@@ -1,3 +1,7 @@
+dir_path=$(pwd)
+
+dir_path=$(pwd)
+
 NodeJs(){
   dnf module disable nodejs -y
   dnf module enable nodejs:20 -y
@@ -17,4 +21,13 @@ UserAdd(){
 
   cd /app
   npm install
+}
+
+DirPath{
+  cp ${dir_path}/${app_name}.service /etc/systemd/system/${app_name}.service
+
+  systemctl daemon-reload
+
+  systemctl enable ${app_name}
+  systemctl restart ${app_name}
 }
