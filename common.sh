@@ -1,44 +1,58 @@
 dir_path=$(pwd)
+log_file=/tmp/roboshop.log
+rm -f ${log_file}
 
 NodeJs(){
-  dnf module disable nodejs -y
-  dnf module enable nodejs:20 -y
-  dnf install nodejs -y
+  echo Install NODEJS Setup
+  dnf module disable nodejs -y &>>log_file
+  dnf module enable nodejs:20 -y &>>log_file
+  dnf install nodejs -y &>>log_file
 }
 
 REDIS(){
-  dnf module disable redis -y
-  dnf module enable redis:7 -y
-  dnf install redis -y
+  echo Install REDIS Setup
+  dnf module disable redis -y &>>log_file
+  dnf module enable redis:7 -y &>>log_file
+  dnf install redis -y &>>log_file
 }
 
 UserAdd(){
+  echo UserAdding
   useradd roboshop
 
+  echo Removed app dir file
   rm -rf /app
+  echo  Added new app file
   mkdir /app
 
-  curl -o /tmp/${app_name}.zip https://roboshop-artifacts.s3.amazonaws.com/${app_name}-v3.zip
+  echo Downloading ${app_name}
+  curl -o /tmp/${app_name}.zip https://roboshop-artifacts.s3.amazonaws.com/${app_name}-v3.zip &>>log_file
   cd /app
-  unzip /tmp/${app_name}.zip
+  unzip /tmp/${app_name}.zip &>>log_file
 
   cd /app
-  npm install
+
+  echo installing nodejs
+  npm install &>>log_file
 }
 
 DirPath(){
+  echo Copying service in ${app_name} file
   cp ${dir_path}/${app_name}.service /etc/systemd/system/${app_name}.service
 
+  echo restart system server
   systemctl daemon-reload
 
   systemctl enable ${app_name}
   systemctl restart ${app_name}
+  Status_Print $?
 }
 
 JAVA(){
 
-
-  dnf install maven -y
+  echo Install Maven
+  dnf install maven -y &>>log_file
+  Status_Print $?
 
   useradd roboshop
 
