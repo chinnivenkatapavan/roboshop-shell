@@ -4,7 +4,12 @@ NodeJs(){
   dnf module disable nodejs -y
   dnf module enable nodejs:20 -y
   dnf install nodejs -y
+}
 
+REDIS(){
+  dnf module disable redis -y
+  dnf module enable redis:7 -y
+  dnf install redis -y
 }
 
 UserAdd(){

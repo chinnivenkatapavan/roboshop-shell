@@ -1,10 +1,11 @@
-dnf module disable redis -y
-dnf module enable redis:7 -y
+source ./common.sh
 
-dnf install redis -y
+app_name=redis
 
-sed -i 's/127.0.0.1/0.0.0.0' /etc/redis/redis.conf
-sed -i '/protected-mode/ c protected-mode no' /etc/redis/redis.conf
+REDIS
 
-systemctl enable redis
-systemctl restart redis
+sed -i 's/127.0.0.1/0.0.0.0' /etc/${app_name}/${app_name}.conf
+sed -i '/protected-mode/ c protected-mode no' /etc/${app_name}/${app_name}.conf
+
+systemctl enable ${app_name}
+systemctl restart ${app_name}

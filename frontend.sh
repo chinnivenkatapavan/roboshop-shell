@@ -1,24 +1,26 @@
+app_name=nginx
+
 
 dnf module list
 
-dnf module disable nginx -y
-dnf module enable nginx:1.24 -y
-dnf install nginx -y
+dnf module disable ${app_name} -y
+dnf module enable ${app_name}:1.24 -y
+dnf install ${app_name} -y
 
-rm -rf /etc/nginx/nginx.conf
-cp nginx.conf /etc/nginx/nginx.conf
+rm -rf /etc/${app_name}/${app_name}.conf
+cp ${app_name}.conf /etc/${app_name}/${app_name}.conf
 
-systemctl enable nginx
-systemctl start nginx
+systemctl enable ${app_name}
+systemctl start ${app_name}
 
 
-rm -rf /usr/share/nginx/html/*
+rm -rf /usr/share/${app_name}/html/*
 
 
 curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
 
 
-cd /usr/share/nginx/html
+cd /usr/share/${app_name}/html
 unzip /tmp/frontend.zip
 
-systemctl restart nginx
+systemctl restart ${app_name}
