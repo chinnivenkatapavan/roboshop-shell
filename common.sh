@@ -2,6 +2,15 @@ dir_path=$(pwd)
 log_file=/tmp/roboshop.log
 rm -f ${log_file}
 
+Status_Print() {
+  if [ $1 -eq 0 ]; then
+    echo -e " \e[32mSUCCESS\e[0m"
+  else
+    echo -e " \e[31mFAILURE\e[0m"
+    exit 1
+  fi
+}
+
 NodeJs(){
   echo Install NODEJS Setup
   dnf module disable nodejs -y &>>log_file
