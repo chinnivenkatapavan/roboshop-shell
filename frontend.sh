@@ -24,7 +24,7 @@ unzip /tmp/frontend.zip &>>log_file
 echo $?
 
 echo Copy conf file in to file
-cp nginx.conf /etc/nginx/nginx.conf &>>log_file
+cp nginx.conf /etc/nginx/nginx.conf
 echo $?
 
 echo Restart Nginx Service to load the changes of the configuration
