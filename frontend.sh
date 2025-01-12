@@ -24,7 +24,7 @@ unzip /tmp/frontend.zip &>>$log_file
 Status_Print $?
 
 echo Copy conf file in to file
-cp nginx.conf /etc/nginx/nginx.conf
+cp nginx.conf /etc/nginx/${app_name}.conf
 Status_Print $?
 
 echo Restart Nginx Service to load the changes of the configuration
