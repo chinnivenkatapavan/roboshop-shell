@@ -1,10 +1,6 @@
 source ./common.sh
 app_name=nginx
 
-echo Copy conf file in to file
-cp nginx.conf /etc/nginx/nginx.conf &>>log_file
-echo $?
-
 echo ${app_name} module is Installing in server
 dnf module disable ${app_name} -y &>>log_file
 dnf module enable ${app_name}:1.24 -y &>>log_file
@@ -25,6 +21,10 @@ echo $?
 echo Extract the frontend content
 cd /usr/share/nginx/html &>>log_file
 unzip /tmp/frontend.zip &>>log_file
+echo $?
+
+echo Copy conf file in to file
+cp nginx.conf /etc/nginx/nginx.conf &>>log_file
 echo $?
 
 echo Restart Nginx Service to load the changes of the configuration
