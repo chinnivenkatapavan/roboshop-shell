@@ -23,8 +23,8 @@ curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v
 echo $?
 
 echo Extract the frontend content
-cd /usr/share/nginx/html
-unzip /tmp/frontend.zip
+cd /usr/share/nginx/html &>>log_file
+unzip /tmp/frontend.zip &>>log_file
 echo $?
 
 echo Restart Nginx Service to load the changes of the configuration
