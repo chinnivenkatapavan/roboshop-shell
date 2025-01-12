@@ -6,6 +6,10 @@ dnf module disable ${app_name} -y &>>$log_file
 dnf module enable ${app_name}:1.24 -y &>>$log_file
 dnf install ${app_name} -y &>>$log_file
 
+echo Copy conf file in to file
+cp nginx.conf /etc/nginx/nginx.conf &>>$log_file
+Status_Print $?
+
 echo start the ${app_name} server
 systemctl enable nginx
 systemctl start nginx
@@ -21,10 +25,6 @@ Status_Print $?
 echo Extract the frontend content
 cd /usr/share/nginx/html &>>$log_file
 unzip /tmp/frontend.zip &>>$log_file
-Status_Print $?
-
-echo Copy conf file in to file
-cp nginx.conf /etc/nginx/nginx.conf &>>$log_file
 Status_Print $?
 
 echo Restart Nginx Service to load the changes of the configuration
