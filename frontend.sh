@@ -1,29 +1,31 @@
+source ./common.sh
 app_name=nginx
 
-echo Showing module list
-dnf module list
+echo Copy conf file in to file
+cp nginx.conf /etc/nginx/nginx.conf &>>log_file
+echo $?
 
-echo install modules &>>log_file
+echo ${app_name} module is Installing in server
 dnf module disable ${app_name} -y &>>log_file
 dnf module enable ${app_name}:1.24 -y &>>log_file
 dnf install ${app_name} -y &>>log_file
-Status_Print $?
 
+echo start the ${app_name} server
+systemctl enable ${app_name}
+systemctl start ${app_name}
 
-rm -rf /etc/${app_name}/${app_name}.conf
-cp ${app_name}.conf /etc/${app_name}/${app_name}.conf
+echo removing default content that web server is serving
+rm -rf /usr/share/nginx/html/* &>>log_file
+echo $?
 
-systemctl enable ${app_name} &>>log_file
-systemctl start ${app_name} &>>log_file
+echo Download the frontend content
+curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip &>>log_file
+echo $?
 
-
-rm -rf /usr/share/${app_name}/html/*
-
-
-curl -o /tmp/frontend.zip https://roboshop-artifacts.s3.amazonaws.com/frontend-v3.zip
-
-
-cd /usr/share/${app_name}/html
+echo Extract the frontend content
+cd /usr/share/nginx/html
 unzip /tmp/frontend.zip
+echo $?
 
-systemctl restart ${app_name} &>>log_file
+echo Restart Nginx Service to load the changes of the configuration
+systemctl restart ${app_name}
