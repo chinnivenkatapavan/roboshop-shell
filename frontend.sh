@@ -7,8 +7,8 @@ dnf module enable ${app_name}:1.24 -y &>>$log_file
 dnf install ${app_name} -y &>>$log_file
 
 echo start the ${app_name} server
-systemctl enable ${app_name}
-systemctl start ${app_name}
+systemctl enable nginx
+systemctl start nginx
 
 echo removing default content that web server is serving
 rm -rf /usr/share/nginx/html/* &>>$log_file
@@ -28,4 +28,4 @@ cp nginx.conf /etc/nginx/nginx.conf
 echo $?
 
 echo Restart Nginx Service to load the changes of the configuration
-systemctl restart ${app_name}
+systemctl restart nginx
